@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aesthetic Estimation - Model Prediction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .card {
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+            background-color: white;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 16px;
+            border-radius: 16px 16px 0 0;
+            text-align: center;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .img-preview {
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .prediction-text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25rem;
+            color: #333;
+        }
+        .prediction-card {
+            background: #f4f7fc;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .prediction-card h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .prediction-card .score {
+            font-size: 3rem;
+            color: #3490dc;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <!-- Navbar -->
+    <nav class="bg-blue-800 py-4">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <h1 class="text-white text-3xl font-bold">Aesthetic Estimation</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#home" class="text-white hover:text-gray-200">Home</a></li>
+                <li><a href="#about" class="text-white hover:text-gray-200">About</a></li>
+                <li><a href="#contact" class="text-white hover:text-gray-200">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-800 to-indigo-700 text-white py-24">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">Aesthetic Estimation Using AI</h2>
+            <p class="text-xl mb-6">Upload your image and let our model estimate its aesthetic score based on advanced machine learning algorithms.</p>
+            <a href="#upload" class="bg-yellow-500 text-gray-900 px-6 py-3 rounded-full text-lg hover:bg-yellow-600">Get Started</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold mb-4">About Aesthetic Estimation</h2>
+            <p class="text-lg text-gray-700">Our model uses cutting-edge machine learning algorithms to estimate the aesthetic appeal of images. Whether for design, art, or branding, we help provide an objective aesthetic score to enhance creative processes.</p>
+        </div>
+    </section>
+
+    <!-- Upload Form Section -->
+    <section id="upload" class="py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-semibold text-center mb-8">Upload an Image for Prediction</h2>
+            <div class="bg-white p-8 rounded-lg shadow-xl max-w-md mx-auto">
+                <form id="uploadForm" method="POST" enctype="multipart/form-data" class="space-y-6">
+                    <div>
+                        <label for="image" class="block text-gray-700 font-semibold mb-2">Select an Image:</label>
+                        <input type="file" name="image" id="image" class="w-full border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-600 focus:outline-none" required>
+                    </div>
+                    <button type="submit" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">Upload Image</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Predictions Result Section -->
+    <section id="predictions" class="bg-gray-50 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div id="predictions-result" class="hidden card">
+                <div class="card-header">
+                    <h3 class="text-xl font-semibold">Prediction Results</h3>
+                </div>
+                <div class="card-body">
+                    <div id="prediction-content" class="prediction-text">
+                        <!-- Dynamic predictions will be displayed here -->
+                    </div>
+                    <div id="uploaded-image" class="mt-8 text-center">
+                        <!-- Image preview will be shown here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-blue-800 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h2 class="text-3xl font-semibold mb-4">Contact Us</h2>
+            <p class="text-lg">Have questions or feedback? Get in touch with us!</p>
+            <p class="mt-4 text-lg">Email: contact@aestheticestimation.com</p>
+            <p class="mt-2 text-lg">Phone: +1 (234) 567-890</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p>&copy; 2024 Aesthetic Estimation. All rights reserved.</p>
+            <p class="mt-2">Developed by Mohammad Yunus</p>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.querySelector('#uploadForm');
+        form.onsubmit = async function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            // Display uploaded image and prediction results
+            const predictionsContainer = document.getElementById('predictions-result');
+            const predictionContent = document.getElementById('prediction-content');
+            const uploadedImage = document.getElementById('uploaded-image');
+
+            // Prediction result styling
+            predictionContent.innerHTML = `
+                <div class="prediction-card">
+                    <h3 class="text-2xl font-semibold mb-4">Aesthetic Score</h3>
+                    <p class="score">${data.predictions}</p>
+                </div>
+            `;
+
+            // Image preview
+            const imgElement = document.createElement('img');
+            imgElement.src = data.image_url;
+            imgElement.alt = "Uploaded Image";
+            imgElement.classList.add("img-preview", "mx-auto");
+
+            uploadedImage.innerHTML = `
+                <h3 class="text-lg font-semibold mb-4">Uploaded Image</h3>
+                <div class="flex justify-center">${imgElement}</div>
+            `;
+
+            predictionsContainer.classList.remove('hidden');
+        };
+    </script>
+</body>
+</html>
